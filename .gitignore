@@ -1,0 +1,66 @@
+# -------------------------------
+# Python / FastAPI Project Ignore
+# -------------------------------
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+ENV/
+.venv.bak/
+
+# FastAPI / Uvicorn logs
+*.log
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+nosetests.xml
+coverage.xml
+
+# MyPy / Pylint
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# -------------------------------
+# Project-Specific
+# -------------------------------
+
+# Flow definitions and demo data
+flow.json
+demos/
+*.flow.json
+
+# Temporary builds or exports
+/tmp/
+dist/
+build/
+*.egg-info/
+
+# -------------------------------
+# Environment and credentials
+# -------------------------------
+.env
+.env.*
+secrets.json
