@@ -30,7 +30,7 @@ A Python + FastAPI engine that dynamically converts JSON flow definitions into b
 ```bash
 # Clone the repo
 git clone https://github.com/bluepi-builder/bluepi_engine.git
-cd nodeflow-engine
+cd bluepi_engine
 
 # Create virtual environment
 python -m venv .venv
