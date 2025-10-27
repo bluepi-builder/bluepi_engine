@@ -1,0 +1,66 @@
+name: Verify Commits
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-cov
+
+      # 4️⃣ Run tests with coverage
+      - name: Run pytest
+        run: |
+          pytest -v --maxfail=1 --disable-warnings --cov=engine --cov-report=term-missing
+
+      # 5️⃣ (Optional) Upload coverage report to GitHub summary
+      - name: Upload coverage summary
+        if: success()
+        run: |
+          echo "### ✅ Pytest passed successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "\n#### Coverage Summary:" >> $GITHUB_STEP_SUMMARY
+          pytest --cov=engine --cov-report=term-missing | tee summary.txt
+          cat summary.txt >> $GITHUB_STEP_SUMMARY
+
+  lint:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install linters
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+
+      - name: Run flake8
+        run: |
+          flake8 engine --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 engine --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
